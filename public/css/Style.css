@@ -1,0 +1,319 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background-color: #0097e6;
+    color: white;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar .nav-links .btn-outline {
+    border: 2px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.navbar .nav-links a:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#hero-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-text {
+    text-align: center;
+    z-index: 1;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    color: #2f3640;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons .btn {
+    padding: 0.8rem 2rem;
+    margin-right: 1rem;
+    background: #0097e6;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.hero-buttons .btn-outline {
+    background: none;
+    border: 2px solid #0097e6;
+    color: #0097e6;
+}
+
+.hero-buttons .btn:hover,
+.hero-buttons .btn-outline:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   FEATURES
+========================= */
+.features {
+    padding: 4rem 3rem;
+    background: #fff;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.feature-cards {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #f1f2f6;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   AUTH PAGES
+========================= */
+.auth-container {
+    max-width: 400px;
+    margin: 5vh auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.auth-container button {
+    width: 100%;
+    background: #0097e6;
+    color: white;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-container button:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   DASHBOARD LAYOUT
+========================= */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    background: #0097e6;
+    color: white;
+    padding: 2rem 1rem;
+}
+
+.sidebar h2 {
+    margin-bottom: 2rem;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.sidebar a:hover {
+    opacity: 0.85;
+}
+
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    background: #f5f6fa;
+}
+
+.dashboard-main h1 {
+    margin-bottom: 2rem;
+}
+
+/* =========================
+   TRANSACTIONS TABLE
+========================= */
+.dashboard-main table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-main table th {
+    background: #0097e6;
+    color: white;
+    padding: 0.9rem;
+    font-size: 0.95rem;
+}
+
+.dashboard-main table td {
+    padding: 0.85rem;
+    font-size: 0.9rem;
+    color: #2f3640;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-main table tr:last-child td {
+    border-bottom: none;
+}
+
+.dashboard-main table tr:hover {
+    background: #f1f7fd;
+}
+
+/* =========================
+   TRANSACTION TYPES
+========================= */
+.tx-credit {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.tx-bus_fee {
+    color: #e84118;
+    font-weight: bold;
+}
+
+.tx-library_fee {
+    color: #c23616;
+    font-weight: bold;
+}
+
+/* =========================
+   AMOUNTS
+========================= */
+.amount-credit {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.amount-debit {
+    color: #e84118;
+    font-weight: bold;
+}
+
+/* =========================
+   ID + HASH
+========================= */
+.tx-id {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #718093;
+}
+
+.tx-hash {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #7f8fa6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #2f3640;
+    color: white;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .dashboard-main table th,
+    .dashboard-main table td {
+        font-size: 0.8rem;
+        padding: 0.6rem;
+    }
+}

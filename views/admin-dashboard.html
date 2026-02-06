@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Secure Wallet</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f6f8;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        .btn-promote {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-demote {
+            background: #ffc107;
+            color: white;
+        }
+
+        .btn-reset {
+            background: #dc3545;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <h2>Users Management</h2>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Wallet Balance</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Users will be populated here -->
+            </tbody>
+        </table>
+
+        <h2>All Transactions</h2>
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Hash</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Transactions will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+
+        if (!token || role !== 'admin') {
+            alert('Access denied');
+            window.location.href = '/login';
+        }
+        // Fetch all users
+        async function getAllUsers() {
+            const res = await fetch('/api/admin/users', {
+                headers: { Authorization: token }
+            });
+            const data = await res.json();
+            const tbody = document.querySelector('#usersTable tbody');
+            tbody.innerHTML = '';
+            data.forEach(user => {
+                const tr = document.createElement('tr');
+
+                tr.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td>${user.walletBalance}</td>
+                    <td>
+                        <button class="btn-promote" onclick="changeRole('${user._id}','admin')">Promote</button>
+                        <button class="btn-demote" onclick="changeRole('${user._id}','user')">Demote</button>
+                        <button class="btn-reset" onclick="resetWallet('${user._id}')">Reset Wallet</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Fetch all transactions
+        async function getAllTransactions() {
+            const res = await fetch('/api/admin/transactions', {
+                headers: { Authorization: token }
+            });
+            const data = await res.json();
+            const tbody = document.querySelector('#transactionsTable tbody');
+            tbody.innerHTML = '';
+            data.forEach(tx => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${tx.userId}</td>
+                    <td>${tx.amount}</td>
+                    <td>${tx.type}</td>
+                    <td>${new Date(tx.createdAt).toLocaleString()}</td>
+                    <td>${tx.hash}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Change user role
+        async function changeRole(userId, newRole) {
+            const res = await fetch(`/api/admin/users/${userId}/role`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', Authorization: token },
+                body: JSON.stringify({ role: newRole })
+            });
+            const data = await res.json();
+            alert(data.msg);
+            getAllUsers();
+        }
+
+        // Reset wallet
+        async function resetWallet(userId) {
+            const res = await fetch(`/api/admin/users/${userId}/reset-wallet`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', Authorization: token }
+            });
+            const data = await res.json();
+            alert(data.msg);
+            getAllUsers();
+        }
+
+        // Initial load
+        getAllUsers();
+        getAllTransactions();
+    </script>
+</body>
+
+</html>
